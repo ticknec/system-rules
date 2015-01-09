@@ -1,9 +1,6 @@
 package org.junit.contrib.java.lang.system;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.sameInstance;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
 import java.io.InputStream;
@@ -26,14 +23,14 @@ public class TextFromStandardInputStreamTest {
 	public void provideText() throws Throwable {
 		ReadTextFromSystemIn statement = new ReadTextFromSystemIn(ARBITRARY_TEXT);
 		executeRuleWithStatement(statement);
-		assertThat(statement.textFromSystemIn, is(equalTo(ARBITRARY_TEXT)));
+		assertThat(statement.textFromSystemIn).isEqualTo(ARBITRARY_TEXT);
 	}
 
 	@Test
 	public void restoreSystemIn() throws Throwable {
 		InputStream originalSystemIn = System.in;
 		executeRuleWithStatement(new EmptyStatement());
-		assertThat(System.in, is(sameInstance(originalSystemIn)));
+		assertThat(System.in).isSameAs(originalSystemIn);
 	}
 
 	private void executeRuleWithStatement(Statement statement) throws Throwable {
